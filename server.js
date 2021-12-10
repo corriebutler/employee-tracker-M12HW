@@ -7,4 +7,8 @@ async function viewAllDepartments() {
     console.table(department);
 };
 
-viewAllDepartments();
+async function viewAllRoles() {
+    const [roles] = await db.viewAllRoles();
+    console.table(roles);
+};
+
