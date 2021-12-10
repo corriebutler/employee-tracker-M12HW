@@ -12,11 +12,10 @@ class DB {
                 department.name
             FROM
                 department`
-
         )
+    };
 
-    }
-
+    
 
 };
 

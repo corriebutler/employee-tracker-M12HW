@@ -1,25 +1,4 @@
-// Import /dependencies
-const express = require('express');
-const apiRoutes = require('./routes/api-routes');
-const htmlRoutes = require('./routes/html-routes');
+const inquirer = require('inquirer');
+const db = require('./db');
+require('console.table');
 
-// Initialize express
-const app = express();
-
-// Declare PORT
-const PORT = process.env.PORT || 3001;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-// Pull from the router
-app.use('/api', apiRoutes);
-app.use('/', htmlRoutes);
-
-// Default request for any other request (Not Found)
-app.use((req, res) => {
-    res.status(404).end();
-});
-
-app.listen(PORT, () => console.log(`API server now on port ${PORT}!`));
