@@ -17,4 +17,9 @@ app.use(express.static('public'));
 app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
 
+// Default request for any other request (Not Found)
+app.use((req, res) => {
+    res.status(404).end();
+});
+
 app.listen(PORT, () => console.log(`API server now on port ${PORT}!`));
