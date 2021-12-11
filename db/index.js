@@ -5,6 +5,7 @@ class DB {
         this.connection = (connection)
     }
 
+    // SQL to pull the entire departments table
     viewAllDepartments() {
         return this.connection.promise().query( 
             `SELECT 
@@ -15,6 +16,7 @@ class DB {
         )
     };
 
+    // SQL to pull the entire role table
     viewAllRoles() {
         return this.connection.promise().query( 
             `SELECT 
@@ -29,6 +31,23 @@ class DB {
         )
     };
 
+    // SQL to pull the entire employee table
+    viewAllEmployees() {
+        return this.connection.promise().query( 
+            `SELECT 
+                employee.id,
+                employee.first_name,
+                employee.last_name, 
+                role.title,
+                employee.manager_id
+            FROM
+                employee
+            LEFT JOIN 
+                role ON employee.role_id = role.id`
+        )
+    };
+
+    // SQL to add a new entry to the department table
     addDepartment(department) {
         return this.connection.promise().query(
             `INSERT INTO 
@@ -36,7 +55,19 @@ class DB {
             SET 
                 ?`, department
         )
-    }
+    };
+
+    // SQL to add a new entry to the role table
+    addRole(role) {
+        return this.connection.promise().query(
+            `INSERT INTO 
+                role (title, salary, department_id)
+            VALUES 
+                (?)`, role
+        )
+    };
+
+
 
 
 
