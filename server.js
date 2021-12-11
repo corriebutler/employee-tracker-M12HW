@@ -14,7 +14,10 @@ function mainMenu() {
                 'View All Roles',
                 'View All Employees',
                 'Add a New Department',
-                'Add a New Role'
+                'Add a New Role',
+                'Add a New Employee',
+                'Update an Employee',
+                'Done'
             ]
         }
     ])
@@ -31,6 +34,12 @@ function mainMenu() {
                 return addDepartment();
             case 'Add a New Role':
                 return addRole();
+            case 'Add a New Employee':
+                return addEmployee();
+            case 'Update an Employee':
+                return updateEmployee();
+            case 'Done':
+                return process.exit();
         }
     });
 };

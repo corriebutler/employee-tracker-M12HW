@@ -32,6 +32,7 @@
 
   ## Resources
   I posted on stackoverflow for an error I was getting: https://stackoverflow.com/questions/70319254/sql-parsing-error-when-trying-to-parse-from-prompt
+  Exit a node.js program: https://nodejs.dev/learn/how-to-exit-from-a-nodejs-program
   
 
   ## GitHub Repo
