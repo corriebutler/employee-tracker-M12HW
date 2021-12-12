@@ -100,7 +100,7 @@ async function addRole() {
         {
             type: 'input',
             name: 'salary',
-            message: 'what is the salary of the role?'
+            message: 'What is the salary of the role?'
         },
         {
             type: 'list',
@@ -111,6 +111,42 @@ async function addRole() {
     ]);
     await db.addRole(role);
     console.log(`Added ${role.title} to the database`);
+    mainMenu();
+}
+
+// Ability to add a new employee to the employee table
+async function addEmployee() {
+    // Pull options so user can select a department to correspond with this role
+    const [role] = await db.viewAllRoles();
+    const roleChoices = role.map(({ id, title }) => ({
+        name: title,
+        value: id
+    }));
+    const employee = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'first_name',
+            message: 'What is the employee\'s first name?'
+        },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: 'What is the employee\'s last name?'
+        },
+        {
+            type: 'list',
+            name: 'role_id',
+            message: 'Which role title belongs to this employee?',
+            choices: roleChoices
+        },
+        {
+            type: 'number',
+            name: 'manager_id',
+            message: 'What is the manager ID for this employee? (Press enter if there is not a manager id)'
+        }
+    ]);
+    await db.addEmployee(employee);
+    console.log(`Added ${employee.first_name} ${employee.last_name} to the database`);
     mainMenu();
 }
 
