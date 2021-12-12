@@ -4,7 +4,7 @@ require('console.table');
 
 // Menu option so users can select what action they want to perform
 function mainMenu() {
-    inquirer.prompt ([
+    inquirer.prompt([
         {
             type: 'list',
             name: 'menu',
@@ -16,32 +16,32 @@ function mainMenu() {
                 'Add a New Department',
                 'Add a New Role',
                 'Add a New Employee',
-                'Update an Employee',
+                'Update an Employee\'s Role',
                 'Done'
             ]
         }
     ])
-    // Switch statement after the user selects an option to take them to the right function
-    .then(res => {
-        switch(res.menu) {
-            case 'View All Departments':
-                return viewAllDepartments();    
-            case 'View All Roles':
-                return viewAllRoles();
-            case 'View All Employees':
-                return viewAllEmployees();
-            case 'Add a New Department':
-                return addDepartment();
-            case 'Add a New Role':
-                return addRole();
-            case 'Add a New Employee':
-                return addEmployee();
-            case 'Update an Employee':
-                return updateEmployee();
-            case 'Done':
-                return process.exit();
-        }
-    });
+        // Switch statement after the user selects an option to take them to the right function
+        .then(res => {
+            switch (res.menu) {
+                case 'View All Departments':
+                    return viewAllDepartments();
+                case 'View All Roles':
+                    return viewAllRoles();
+                case 'View All Employees':
+                    return viewAllEmployees();
+                case 'Add a New Department':
+                    return addDepartment();
+                case 'Add a New Role':
+                    return addRole();
+                case 'Add a New Employee':
+                    return addEmployee();
+                case 'Update an Employee\'s Role':
+                    return updateEmployeeRole();
+                case 'Done':
+                    return process.exit();
+            }
+        });
 };
 
 // Funtion to allow a user to view all departments
@@ -116,7 +116,7 @@ async function addRole() {
 
 // Ability to add a new employee to the employee table
 async function addEmployee() {
-    // Pull options so user can select a department to correspond with this role
+    // Pull options so user can select a role to correspond with this role
     const [role] = await db.viewAllRoles();
     const roleChoices = role.map(({ id, title }) => ({
         name: title,
@@ -149,5 +149,37 @@ async function addEmployee() {
     console.log(`Added ${employee.first_name} ${employee.last_name} to the database`);
     mainMenu();
 }
+
+async function updateEmployeeRole() {
+    // Pull in the employees to allow a user to select which they want to update
+    const [employee] = await db.viewAllEmployees();
+    const employeeChoices = employee.map(({ id, first_name, last_name }) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+    }));
+    // Pull options so user can select a role to update the employee to
+    const [role] = await db.viewAllRoles();
+    const roleChoices = role.map(({ id, title }) => ({
+        name: title,
+        value: id
+    }));
+    const newEmployee = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employeeToUpdate',
+            message: 'Which employee do you want to change the role for?',
+            choices: employeeChoices
+        },
+        {
+            type: 'list',
+            name: 'role_id',
+            message: 'Which role title belongs to this employee?',
+            choices: roleChoices
+        }
+    ]);
+    await db.updateEmployeeRole(newEmployee);
+    console.log(`${newEmployee.first_name} ${newEmployee.last_name}\' role has been updated in the database.`);
+    mainMenu();
+};
 
 mainMenu();

@@ -77,20 +77,15 @@ class DB {
         )
     };
 
-    updateEmployee(employee) {
+    // SQL to update an employee's Role
+    updateEmployeeRole(newEmployee) {
         return this.connection.promise().query(
             `ALTER INTO 
-                employee (first_name, last_name, role_id, manager_id)
+                employee (role_id)
             VALUES 
-                (?)`, employee
+                (?)`, newEmployee
         )
     }
-
-
-
-
-
-    
 
 };
 
