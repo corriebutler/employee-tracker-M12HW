@@ -61,9 +61,9 @@ class DB {
     addRole(role) {
         return this.connection.promise().query(
             `INSERT INTO 
-                role (title, salary, department_id)
-            VALUES 
-                (?)`, role
+                role 
+            SET 
+                ?`, role
         )
     };
 
@@ -71,19 +71,21 @@ class DB {
     addEmployee(employee) {
         return this.connection.promise().query(
             `INSERT INTO 
-                employee (first_name, last_name, role_id, manager_id)
-            VALUES 
-                (?)`, employee
+                employee 
+            SET 
+                ?`, employee
         )
     };
 
     // SQL to update an employee's Role
-    updateEmployeeRole(newEmployee) {
+    updateEmployeeRole(employeeId, roleId) {
         return this.connection.promise().query(
-            `ALTER INTO 
-                employee (role_id)
-            VALUES 
-                (?)`, newEmployee
+            `UPDATE
+                employee 
+            SET 
+                role_id = ? 
+            WHERE 
+                id = ?`, [roleId, employeeId]
         )
     }
 
