@@ -167,22 +167,22 @@ async function updateEmployeeRole() {
         name: title,
         value: id
     }));
-    const newEmployee = await inquirer.prompt([
+    const { roleId, employeeId} = await inquirer.prompt([
         {
             type: 'list',
-            name: 'employeeToUpdate',
+            name: 'employeeId',
             message: 'Which employee do you want to change the role for?',
             choices: employeeChoices
         },
         {
             type: 'list',
-            name: 'role_id',
+            name: 'roleId',
             message: 'Which role title belongs to this employee?',
             choices: roleChoices
         }
     ]);
     await db.updateEmployeeRole(employeeId, roleId);
-    console.log(`${newEmployee.first_name} ${newEmployee.last_name}\' role has been updated in the database.`);
+    console.log(`Employee's role has been updated in the database.`);
     mainMenu();
 };
 
