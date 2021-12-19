@@ -18,7 +18,8 @@
 
 
   ## Visuals
-
+  ![image](https://user-images.githubusercontent.com/84928781/146684119-aa92bf9d-8683-481b-a865-f29406d9324a.png)
+  Video Walkthrough: https://drive.google.com/file/d/1dyRBsyp0ADVxXpMwybjDcwjunyn0IKF5/view
 
 
   ## Languages Used
