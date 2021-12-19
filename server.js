@@ -78,7 +78,6 @@ async function addDepartment() {
             message: 'What is the new department\'s name?'
         }
     ])
-    console.log(department);
     db.addDepartment(department);
     console.log(`Added ${department} to your database.`);
     mainMenu();
@@ -110,8 +109,6 @@ async function addRole() {
             choices: departmentChoices
         }
     ]);
-    console.log(role);
-    console.log(`${role} # 2`);
     await db.addRole(role);
     console.log(`Added ${role.title} to the database`);
     mainMenu();
@@ -148,7 +145,6 @@ async function addEmployee() {
             message: 'What is the manager ID for this employee? (Press enter if there is not a manager id)'
         }
     ]);
-    console.log(employee);
     await db.addEmployee(employee);
     console.log(`Added ${employee.first_name} ${employee.last_name} to the database`);
     mainMenu();
